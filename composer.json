@@ -1,0 +1,21 @@
+{
+	"name": "growth-institute/addevent-php",
+	"description": "PHP library for AddEvent",
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"AddEventPHP\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Rodrigo Tejero",
+			"email": "rodrigo.tejero@chimp.mx"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"curl/curl": "^2.3"
+	}
+}
