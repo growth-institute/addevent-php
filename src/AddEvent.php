@@ -17,15 +17,14 @@
 
 		// Calendar Endpoints
 
-		public function listCalendars() {
+		public function listCalendars($page) {
 
 			$this->curl->get($this->baseUrl . '/me/calendars/list', [ 'token' => $this->token ]);
-
+			if(isset($page)) $this->curl->get($page);
 			$response = json_decode($this->curl->response);
-
 			if($response && isset($response->meta) && isset($response->meta->code) && $response->meta->code == 200) {
-
-				return $response->calendars;
+				$response->calendars = json_decode(json_encode($response->calendars), true);
+				return $response;
 			}
 
 			return false;
@@ -369,24 +368,6 @@
 		public function createRSVPAttendee($event_id, $props = []) {
 
 			$this->curl->get($this->baseUrl . '/oe/rsvps/attendee/create', array_merge([
-				'event_id' => $event_id,
-				'token' => $this->token
-			], $props));
-
-			$response = json_decode($this->curl->response);
-
-			if($response && isset($response->meta) && isset($response->meta->code) && $response->meta->code == 200) {
-
-				return $response->attendee;
-			}
-
-			return false;
-		}
-
-		public function createRSVPAttendee($event_id, $user_id, $props = []) {
-
-			$this->curl->get($this->baseUrl . '/oe/rsvps/attendee/save', array_merge([
-				'user_id' => $user_id,
 				'event_id' => $event_id,
 				'token' => $this->token
 			], $props));
